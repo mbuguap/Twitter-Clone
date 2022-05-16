@@ -50,12 +50,11 @@ function Tweet({ tweet }: Props) {
     toast('Comment Posted.')
     return json
   }
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     postComment()
     setInput('')
   }
-
   // console.log(comments)
   return (
     <div className="flex flex-col space-x-3 border-y border-gray-100 p-5">
@@ -108,7 +107,7 @@ function Tweet({ tweet }: Props) {
       </div>
       {/* Comment Box logic*/}
       {commentBoxVisible && (
-        <form onClick={handleSubmit} className="mt-3 flex space-x-3">
+        <form className="mt-3 flex space-x-3">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -117,6 +116,7 @@ function Tweet({ tweet }: Props) {
             placeholder="Write a comment"
           />
           <button
+            onClick={handleSubmit}
             disabled={!input}
             className="disabled text-twitter disabled:text-gray-200"
           >
@@ -126,7 +126,7 @@ function Tweet({ tweet }: Props) {
       )}
 
       {comments?.length > 0 && (
-        <div className="my-2 mt-5 max-h-44 space-y-5 overflow-y-scroll border-t border-gray-100 p-5">
+        <div className="my-2 mt-5 max-h-44 space-y-5 overflow-y-scroll border-t border-gray-100 p-5 scrollbar-hide">
           {comments.map((comment) => (
             <div key={comment._id} className="relative flex space-x-2">
               <hr className="absolute left-5 top-10 h-8 border-x border-twitter/30" />
